@@ -1,1 +1,1 @@
-# Priyanka-LeetCode-Solutions
+# My solutions for leetCode problems.
