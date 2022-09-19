@@ -1,0 +1,28 @@
+class Solution {
+    public int minimumDeletions(String s) {
+        int[] dpA = new int[s.length()];
+        dpA[s.length()-1] = s.charAt(s.length()-1) == 'a' ? 1 : 0;
+        
+        for(int i=s.length()-2; i >=0; i--){
+            if(s.charAt(i) == 'a'){
+                dpA[i] = dpA[i+1] + 1;
+                
+            } else{
+                dpA[i] = dpA[i+1];
+            }
+        }
+        
+        int bCount = 0;
+        int ans = Integer.MAX_VALUE;
+        for(int i=0; i < s.length(); i++){
+            int val = 0;
+            if(s.charAt(i) == 'b'){
+              ans = Math.min(ans, bCount+dpA[i]);
+                bCount++;
+            }
+           
+        } 
+         ans = Math.min(ans, bCount);
+        return ans == Integer.MAX_VALUE ? 0 : ans;
+    }
+}
