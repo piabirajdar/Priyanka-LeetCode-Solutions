@@ -1,0 +1,40 @@
+        Stack<Character> s = new Stack<>();
+        
+        int collide = 0;
+        
+        for(char c : directions.toCharArray()){
+            if(s.isEmpty()) s.push(c);
+            
+            else{
+                if(c == 'L'){
+                    if(s.peek() == 'R'){
+                        collide += 2;
+                        s.pop();
+                        while(!s.isEmpty() && s.peek() == 'R'){
+                            collide++;
+                            s.pop();
+                        }
+                        s.push('S');
+                    }
+                    else if(s.peek() == 'L'){
+                        s.push(c);
+                    }
+                    else{
+                        s.push('S');
+                        collide++;
+                    }
+                }
+                else if(c == 'R'){
+                    s.push(c);
+                }
+                else{
+                    while(!s.isEmpty() && s.peek() == 'R'){
+                        collide++;
+                        s.pop();
+                    }
+                    s.push(c);
+                }
+            }
+        }
+        
+        return collide;
