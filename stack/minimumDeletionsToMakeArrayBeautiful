@@ -1,0 +1,21 @@
+class Solution {
+    public int minDeletion(int[] nums) {
+        //do not want an  element to come in stack for even top;
+       Stack<Integer> st = new Stack<>();
+        int del=0;
+        int top=-1;
+        
+        for(int i=0; i < nums.length; i++){
+          if(top%2 == 0 && (st.peek() == nums[i])){
+              del++;
+          } else {
+              top++;
+              st.push(nums[i]);
+          }
+        }
+        
+         if(st.size()%2 != 0) del++;
+       
+        return del;
+    }
+}
