@@ -1,0 +1,29 @@
+class Solution {
+    public String makeGood(String s) {
+            if(s == null || s.length() == 0) return s;
+     Stack<Character> st = new Stack<>();
+        
+        
+        for(char c : s.toCharArray()){
+            if(Character.isUpperCase(c)){
+                if(!st.isEmpty() && st.peek() == Character.toLowerCase(c)){
+                    st.pop();
+                    continue;
+                }
+                
+            } else if(!st.isEmpty() && Character.isUpperCase(st.peek())){
+                if(c == Character.toLowerCase(st.peek())){
+                     st.pop();
+                continue;
+                }
+               
+            }  
+            st.push(c);     
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        while(!st.isEmpty()) sb.append(st.pop());
+        
+        return sb.reverse().toString();    
+    }
+}
