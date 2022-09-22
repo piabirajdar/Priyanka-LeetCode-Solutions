@@ -1,0 +1,28 @@
+class Solution {
+    public int[] sumEvenAfterQueries(int[] nums, int[][] queries) {
+        int sum = sumOfArray(nums);
+        int[] res = new int[nums.length];
+        int i=0;
+        for(int[] query: queries){
+            if(nums[query[1]]%2 == 0)
+                sum-=nums[query[1]];
+            nums[query[1]]+=query[0];
+            if(nums[query[1]]%2 == 0)
+                sum+=nums[query[1]];
+            res[i++] = sum;
+        }
+        
+        
+        return res;
+    }
+    
+    public int sumOfArray(int[] nums){
+        int sum=0;
+        
+        for(int i=0; i < nums.length; i++){
+            if(nums[i]%2 == 0)
+                sum+=nums[i];
+        }
+        return sum;
+    }
+}
