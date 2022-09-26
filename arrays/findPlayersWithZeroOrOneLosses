@@ -1,0 +1,23 @@
+class Solution {
+    public List<List<Integer>> findWinners(int[][] matches) {
+        Map<Integer, Integer> map = new HashMap<>();
+        List<List<Integer>> res = new ArrayList<>();
+        for(int[] arr : matches){
+            map.put(arr[1], map.getOrDefault(arr[1], 0) +1);
+        }
+        TreeSet<Integer> ls1 = new TreeSet<>();
+         TreeSet<Integer> ls2 = new TreeSet<>();
+        for(int[] arr : matches){
+            if(!map.containsKey(arr[0])){
+                ls1.add(arr[0]);
+            }
+            if(map.get(arr[1]) == 1){
+                ls2.add(arr[1]);
+            }
+        }
+        res.add(new ArrayList<>(ls1));
+         res.add(new ArrayList<>(ls2));
+        
+        return res;
+    }
+}
