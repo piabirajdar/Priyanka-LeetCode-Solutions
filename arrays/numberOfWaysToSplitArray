@@ -1,0 +1,16 @@
+class Solution {
+    public int waysToSplitArray(int[] nums) {
+        long totalSum = 0;
+        
+        for(int i : nums){
+            totalSum+=i;
+        }
+        long sumTillNow=0;
+        int res=0;
+        for(int i=0; i < nums.length-1; i++){
+            sumTillNow +=nums[i];
+            if(sumTillNow >= totalSum-sumTillNow) res++;
+        }
+        return res;
+    }
+}
