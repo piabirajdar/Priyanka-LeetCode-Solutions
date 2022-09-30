@@ -1,0 +1,20 @@
+class Solution {
+    public int minimumDeletions(int[] nums) {
+        List<Integer> ls = IntStream.of(nums).boxed().collect(Collectors.toList());
+        int max = Collections.max(ls);
+        int min = Collections.min(ls);
+        int n = nums.length;
+        int minIndex = ls.indexOf(min);
+        int maxIndex = ls.indexOf(max);
+        //both from either fron or back;
+        int front = Math.max(minIndex, maxIndex) +1;
+        int back = n - Math.min(minIndex, maxIndex);
+
+        int removeSmall = Math.min(minIndex+1, n-minIndex);
+        int removeBig = Math.min(maxIndex+1, n-maxIndex);
+        int total = removeBig+removeSmall;
+        return Math.min(total, Math.min(front, back));
+
+
+    }
+}
