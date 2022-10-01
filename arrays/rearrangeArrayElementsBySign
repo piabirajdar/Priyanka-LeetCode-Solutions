@@ -1,0 +1,20 @@
+class Solution {
+    public int[] rearrangeArray(int[] nums) {
+        Queue<Integer> q1 = new LinkedList<>();
+        Queue<Integer> q2 = new LinkedList<>();
+
+        for(int i : nums){
+            if(i > 0){
+                q1.offer(i);
+            } else {
+                q2.offer(i);
+            }
+        }
+   
+        for(int i=0; i < nums.length; i++){
+                nums[i++] = q1.poll();
+                nums[i] = q2.poll();
+        }
+        return nums;
+    }
+}
