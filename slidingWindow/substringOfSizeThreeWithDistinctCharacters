@@ -1,0 +1,15 @@
+class Solution {
+    public int countGoodSubstrings(String s) {
+          int goodStrings = 0;
+        for(int i = 0; i< s.length()-2;i++){
+			// Check if the three characters in sequence is repetetive, if its repeated continue the sliding window.
+            if(s.charAt(i) == s.charAt(i+1) || s.charAt(i) == s.charAt(i+2) || s.charAt(i+1) == s.charAt(i+2)){
+                continue;
+            } 
+			// Otherwise increment the goodString count.
+            goodStrings++;
+        }
+		// Return the goodString count.
+        return goodStrings;
+    }
+}
