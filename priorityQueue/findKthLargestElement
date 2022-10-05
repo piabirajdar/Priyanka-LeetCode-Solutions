@@ -1,0 +1,24 @@
+class Solution {
+     public String kthLargestNumber(String[] nums, int k) {
+        if (nums == null || nums.length == 0)
+            return "";
+        int length = nums.length;
+        PriorityQueue<String> maxHeap = new PriorityQueue<>((s1, s2) -> {
+            if (s1.length() == s2.length()) 
+                return s2.compareTo(s1);
+            else
+                return Integer.compare(s2.length(), s1.length());
+        });
+        for (String num : nums) {
+            maxHeap.offer(num);
+           
+        }
+        while(k > 1){
+            maxHeap.poll();
+            k--;
+        }
+        System.out.println(maxHeap);
+
+        return maxHeap.poll();
+    }
+}
