@@ -1,0 +1,25 @@
+class Solution {
+    public int halveArray(int[] nums) {
+            
+        PriorityQueue<Double> pq = new PriorityQueue<Double>(Comparator.reverseOrder());
+        
+        double currSum = 0;
+        for(int num : nums){
+            currSum+= num;
+            pq.add((double) num);
+        }
+        
+        double finalSum = currSum / 2;
+        int count = 0;
+        while(currSum > finalSum){
+            
+            double currNum = pq.poll();
+            currSum-= currNum;
+            currSum+= currNum / 2;
+            pq.add(currNum/2);
+            count++;
+        }
+        
+        return count;
+    }
+}
