@@ -1,0 +1,30 @@
+class Solution {
+    public int maximumSum(int[] nums) {
+     Map<Integer, List<Integer>> map = new HashMap<>();   
+        
+        for(int i=0; i < nums.length; i++){
+            int sum = getSum(nums[i]);
+         	map.putIfAbsent(sum, new ArrayList<Integer>());
+           map.get(sum).add(nums[i]);
+        }
+        int ans=-1;
+        for(Map.Entry<Integer, List<Integer>> entry: map.entrySet()){
+            List<Integer> ls = entry.getValue();
+            Collections.sort(ls, Collections.reverseOrder());
+            if(ls.size() >=2){
+                ans = Math.max(ans, ls.get(0) + ls.get(1));
+            }
+        }
+        System.out.println(map);
+        return ans;
+    }
+    
+    public int getSum(int n){
+        int sum=0;
+        while(n !=0){
+            sum+=n%10;
+            n=n/10;
+        }
+        return sum;
+    }
+}
