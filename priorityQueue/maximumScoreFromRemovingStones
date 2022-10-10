@@ -1,0 +1,20 @@
+class Solution {
+    public int maximumScore(int a, int b, int c) {
+      PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+
+      pq.offer(a);
+      pq.offer(b);
+      pq.offer(c);
+      int score = 0;
+      while(pq.size() > 1){
+          int max1 = pq.poll();
+          int max2 = pq.poll();
+          if(max1-1 > 0)
+          pq.add(max1-1);
+          if(max2-1 > 0)
+          pq.add(max2-1);
+          score++;
+      }
+      return score;
+    }
+}
