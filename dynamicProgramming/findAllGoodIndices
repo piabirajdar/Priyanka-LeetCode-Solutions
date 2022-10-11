@@ -1,0 +1,31 @@
+class Solution {
+    public List<Integer> goodIndices(int[] nums, int k) {
+      List<Integer> ls = new ArrayList<>();
+      int n = nums.length;
+        int[] prefix = new int[nums.length];
+        int[] suffix = new int[nums.length];
+    prefix[0] = 1;
+      for(int i=1; i < nums.length; i++){
+          if(nums[i]<=nums[i-1]){
+              prefix[i] = prefix[i-1]+1;
+          } else {
+              prefix[i] = 1;
+          }
+      }  
+     suffix[n-1] = 1;
+        for(int i=n-2; i>=0; i--){
+          if(nums[i]<=nums[i+1]){
+              suffix[i] = suffix[i+1]+1;
+          } else {
+              suffix[i] = 1;
+          }
+      }
+
+      for(int i=k; i < n-k; i++){
+          if(prefix[i-1] >=k && suffix[i+1] >=k){
+              ls.add(i);
+          }
+      } 
+      return ls; 
+    }
+}
