@@ -1,0 +1,31 @@
+class Solution {
+    public List<Integer> goodDaysToRobBank(int[] arr, int time) {
+       int[] dec = new int[arr.length];
+        int[] inc = new int[arr.length];
+       
+        inc[0] =0;
+        for(int i=1; i < arr.length; i++){
+            if(arr[i] > arr[i-1]){
+                dec[i] = 0;
+            } else{
+              
+                dec[i] = dec[i-1]+1;
+            }
+        }
+        
+          for(int i=arr.length-2; i >=0; i--){
+            if(arr[i] > arr[i+1]){
+                inc[i] = 0;
+            } else{
+                inc[i] = inc[i+1]+1;
+            }
+        }
+        List<Integer> res = new ArrayList<>();
+        for(int i=time; i < arr.length-time; i++){
+            if(inc[i] >= time && dec[i] >= time){
+                res.add(i);
+            }
+        }
+        return res;
+    }
+}
