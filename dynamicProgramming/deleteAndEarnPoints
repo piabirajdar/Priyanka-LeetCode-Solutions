@@ -1,0 +1,18 @@
+class Solution {
+    public int deleteAndEarn(int[] nums) {
+        int[] values = new int[10001];
+        int prev2=0;
+        int prev1=0;
+        for(int i=0; i < nums.length; i++){
+            values[nums[i]] +=nums[i];
+        }
+
+        for(int value : values){
+            int temp = prev1;
+            prev1 = Math.max(prev2+value, prev1);
+            prev2 = temp;
+        }
+
+    return prev1;
+    }
+}
