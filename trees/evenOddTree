@@ -1,0 +1,32 @@
+
+class Solution {
+    public boolean isEvenOddTree(TreeNode root) {
+        if(root == null) return true;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        q.offer(null);
+        int cur = 0;
+        int prevEven = Integer.MAX_VALUE;
+        int prevOdd = Integer.MIN_VALUE;
+        while(!q.isEmpty()){
+            TreeNode temp = q.poll();
+            if(temp != null){
+                if(cur % 2 == 0){
+                    if((temp.val%2 == 0) || prevOdd >= temp.val) return false;
+                    prevOdd = temp.val;
+                } else{
+                     if((temp.val%2 != 0) || prevEven <= temp.val) return false;
+                    prevEven = temp.val;
+                }
+                if(temp.left != null) q.offer(temp.left);
+                if(temp.right != null) q.offer(temp.right);
+            } else{
+                cur++;
+                prevEven = Integer.MAX_VALUE;
+                prevOdd = Integer.MIN_VALUE;
+                if(!q.isEmpty()) q.offer(null);
+            }
+        }
+        return true;
+    }
+}
