@@ -1,0 +1,21 @@
+class Solution {
+ int ans=0;
+    public int findTargetSumWays(int[] a, int target) {
+         c(a,0,0,target);
+        return ans;                
+    }
+    
+ public void c(int[] a,int index,int target,int t) {
+		if (index==a.length) {
+			if (target==t) {
+				ans++;
+               
+			} 
+             return;
+		}
+     
+		 c(a,index+1,target+a[index],t);
+		 c(a,index+1,target-a[index],t);
+	
+	}
+}
