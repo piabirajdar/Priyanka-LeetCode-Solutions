@@ -1,0 +1,27 @@
+class Solution {
+ int sum = 0;
+    public int countArrangement(int n) {
+          boolean[] visited = new boolean[n + 1];
+         dfs(n, 1, visited);
+        return sum;
+    }
+    
+  private void dfs(int n, 
+                    int curIdx, 
+                    boolean[] visited) {
+    if(curIdx> n)  {
+        sum++;
+    }     
+    
+       
+       for (int i = 1; i <= n; i++) {
+            if(!visited[i] && (i % curIdx == 0 || curIdx % i == 0)) {
+            visited[i] = true;
+            dfs(n, curIdx + 1, visited);
+            visited[i] = false;
+            }   
+        }
+    }
+    
+   
+}
