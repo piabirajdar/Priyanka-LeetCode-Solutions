@@ -1,0 +1,28 @@
+class Solution {
+    public int[] successfulPairs(int[] spells, int[] potions, long success) {
+        List<Integer> ls = new ArrayList<>();
+        Arrays.sort(potions);
+        for(int i=0; i < spells.length; i++){
+            long spell = spells[i];
+            int value = binarySearch(spell, potions, success);
+            ls.add(potions.length-value);
+        }
+
+        return ls.stream().mapToInt(i->i).toArray();
+    }
+
+    public int binarySearch(long spell, int[] potions, long success){
+        int start=0;
+        int end =potions.length;
+        while(start < end){
+            int mid  = start+ (end-start)/2;
+            long value = spell * potions[mid];
+            if(success > value){
+                start = mid+1;
+            } else {
+                end = mid;
+            }
+        }
+        return end;
+    }
+}
