@@ -1,0 +1,51 @@
+class Solution {
+    public int shortestBridge(int[][] grid) {
+    int count = 0;
+    List<Pair<Integer, Integer>> a = new ArrayList<>();
+    List<Pair<Integer, Integer>> b = new ArrayList<>();
+    
+    for(int i=0; i<grid.length; i++){
+        for(int j=0; j<grid[0].length; j++){
+            if(grid[i][j] == 1){
+                count++;
+                if(count == 1){
+                    dfs(grid, i, j, a);   
+                }
+                if(count == 2){
+                    dfs(grid, i, j, b);   
+                }   
+            }
+        }
+    }
+   int ans = Integer.MAX_VALUE;
+    
+    for(int i=0; i<a.size(); i++)
+    {
+        for(int j=0; j<b.size(); j++)
+        {
+            int dist = Math.abs(a.get(i).getKey() - b.get(j).getKey()) + Math.abs(a.get(i).getValue() - b.get(j).getValue()) - 1;
+            if(dist < ans)
+                ans = dist;
+        }
+    }
+    return ans;
+}
+
+        
+public static void dfs(int[][] grid, int i, int j, List<Pair<Integer, Integer>> a)
+{
+    if(i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || grid[i][j]==0)
+        return;
+    
+    grid[i][j] = 0;
+    Pair<Integer, Integer> p = new Pair<>(i, j);
+    a.add(p);
+    
+    dfs(grid, i+1, j, a);
+    dfs(grid, i-1, j, a);
+    dfs(grid, i, j-1, a);
+    dfs(grid, i, j+1, a);
+    
+    return;
+}
+}
