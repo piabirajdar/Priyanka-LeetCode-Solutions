@@ -1,0 +1,19 @@
+class Solution {
+    Map<String, Integer> map = new HashMap<>();
+    final int MOD = 1000000007;
+    public int numRollsToTarget(int n, int k, int target) {
+       if(target < n || target > n*k) return 0;
+       String key = ""+n+k+target;
+       if(map.containsKey(key)) return map.get(key);
+       if(target == 0) return 1;
+       int sum=0;
+       for(int i=1; i <= k; i++){
+           sum+=numRollsToTarget(n-1, k, target-i);
+           sum%=MOD;
+       } 
+       map.put(key, sum);
+       
+       
+       return map.get(key);
+    }
+}
