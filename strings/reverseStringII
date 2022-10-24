@@ -1,0 +1,16 @@
+class Solution {
+    public String reverseStr(String s, int k) {
+        boolean rev = true;
+        StringBuilder sb = new StringBuilder();
+        for(int i=0; i < s.length(); i+=k){
+            String cur = s.substring(i, Math.min(s.length(), i+k));
+            if(rev){
+                sb.append(new StringBuilder(cur).reverse().toString());
+            } else {
+                sb.append(cur);
+            }
+            rev = !rev;
+        }
+        return sb.toString();
+    }
+}
