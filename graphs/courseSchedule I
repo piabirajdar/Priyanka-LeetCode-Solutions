@@ -1,0 +1,38 @@
+class Solution {
+    public boolean canFinish(int n, int[][] pre) {
+     Map<Integer, List<Integer>> map = new HashMap<>();
+        for(int i =0; i < n; i++){
+           map.put(i , new ArrayList<>()); 
+        }
+        
+        for(int[] arr: pre){
+            int a = arr[0];
+            int b = arr[1];
+            
+            map.get(a).add(b);
+        }
+        boolean[] visited = new boolean[n];
+        boolean[] currPath = new boolean[n];
+        boolean[] dp = new boolean[n];
+        for(int i=0; i<n; i++){
+            if(!dfs(map,visited,i, currPath))
+                return false;
+        }
+        return true;
+    }
+    public boolean dfs(Map<Integer, List<Integer>> map, boolean[] visited, int src, boolean[] currPath){
+       if(currPath[src]) return false;
+       if(visited[src]) return true;
+
+       currPath[src] = true;
+       visited[src] = true;
+
+       for(int neighbor : map.get(src)){
+           if(!dfs(map, visited, neighbor, currPath)) return false;
+       }
+
+       currPath[src] = false;
+       return true;
+    }
+}
+
