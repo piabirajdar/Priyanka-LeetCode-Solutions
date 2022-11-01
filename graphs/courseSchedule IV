@@ -1,0 +1,36 @@
+class Solution {
+    Map<Integer, List<Integer>> map;
+    public List<Boolean> checkIfPrerequisite(int numCourses, int[][] prerequisites, int[][] queries) {
+        map = new HashMap<>(); 
+        for(int i=0; i < pre.length; i++){
+            int a = pre[i][0];
+            int b = pre[i][1];
+            if(!map.containsKey(a)) map.put(a, new ArrayList<>());
+            map.get(a).add(b);
+        }
+        HashSet<Integer> hs = new HashSet<>();
+        List<HashSet<Integer>> ls = new ArrayList<>();
+        List<Boolean> res = new ArrayList<>();
+        //create a list with course and its all dependencies.
+        for(int i=0; i < n; i++){
+            dfs(hs, i);
+            ls.add(new HashSet<>(hs));
+            hs.clear();
+        }
+        for(int i=0; i < q.length; i++){
+            int src = q[i][0];
+            int des = q[i][1];
+           if(ls.get(src).contains(des)) res.add(true);
+            else res.add(false);
+        }
+        return res;
+    }
+    
+    public void dfs(HashSet<Integer> hs, int i){
+        if(hs.contains(i)) return;
+        hs.add(i);
+        for(int a : map.getOrDefault(i, new ArrayList<>())){
+            dfs(hs, a);
+        }
+    } 
+}
