@@ -1,0 +1,28 @@
+class Solution {
+    public long numberOfWays(String s) {
+        int[] left1 = new int[s.length()];
+        int[] left0 = new int[s.length()];
+        int cnt1=0;
+        int cnt0=0;
+        
+        for(int i=0; i < s.length(); i++){
+            if(s.charAt(i) == '0')
+                cnt0++;
+            else 
+                cnt1++;
+            left0[i] = cnt0;
+            left1[i] = cnt1;
+        }
+        
+        long res = 0l;
+        
+        for(int i=0; i < s.length(); i++){
+            if(s.charAt(i) == '0'){
+                res = res + (left1[i]*(cnt1-left1[i]));
+            } else{
+                res = res + (left0[i]*(cnt0-left0[i]));
+            }
+        }
+        return res;
+    }
+}
