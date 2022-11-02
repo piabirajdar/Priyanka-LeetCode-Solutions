@@ -1,0 +1,24 @@
+class Solution {
+    public int numSplits(String s) {
+       int[] dpF = new int[s.length()];
+        int[] dpB = new int[s.length()];
+        Set<Character> set = new HashSet<>();
+        
+        for(int i=0; i < s.length(); i++){
+            set.add(s.charAt(i));
+            dpF[i] = set.size(); 
+        }
+        set.clear();
+         for(int i=s.length()-1; i >=0; i--){
+            set.add(s.charAt(i));
+            dpB[i] = set.size(); 
+        }
+        int cnt=0;
+        for(int i=0; i < s.length()-1; i++){
+            if(dpF[i] == dpB[i+1]){
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+}
