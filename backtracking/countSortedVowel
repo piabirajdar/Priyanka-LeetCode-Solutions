@@ -1,0 +1,22 @@
+class Solution {
+int res=0;
+    public int countVowelStrings(int n) {
+        char[] arr = {'a', 'e', 'i', 'o', 'u'};
+            
+        helper(0, arr, new StringBuilder(), n);
+        return res;
+    }
+        
+        public void helper(int start, char[] arr, StringBuilder sb, int n){
+            if(sb.length() == n){
+                res++;
+                return;
+            }
+            
+            for(int i=start; i < arr.length; i++){
+                sb.append(arr[i]);
+                helper(i, arr, sb, n);
+                sb.deleteCharAt(sb.length()-1);
+            }
+        }
+}
