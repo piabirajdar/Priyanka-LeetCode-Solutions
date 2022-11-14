@@ -1,0 +1,18 @@
+class Solution {
+    public int numRabbits(int[] answers) {
+       if (answers.length == 0) return 0;
+        Arrays.sort(answers);
+        int toBeSkipped = answers[0];
+        int result = answers[0] + 1;
+        for (int i = 1; i < answers.length; i++) {
+            if (answers[i] == answers[i - 1] && toBeSkipped > 0) {
+                toBeSkipped--;
+            } else {
+                toBeSkipped = answers[i];
+                result += answers[i] + 1;
+            }
+        }
+        
+        return result;
+    }
+}
