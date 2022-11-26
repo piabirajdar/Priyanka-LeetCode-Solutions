@@ -1,0 +1,19 @@
+class Solution {
+    public int dietPlanPerformance(int[] calories, int k, int lower, int upper) {
+        int ans=0;
+        int sum=0;
+        for(int i=0; i < k; i++){
+            sum+=calories[i];
+        }
+        if(sum < lower) ans--;
+        else if(sum > upper) ans++;
+
+        for(int i=1; i <calories.length-k+1; i++){
+            sum-=calories[i-1];
+            sum+=calories[i+k-1];
+            if(sum < lower) ans--;
+            else if(sum > upper) ans++;
+        }
+        return ans;
+    }
+}
