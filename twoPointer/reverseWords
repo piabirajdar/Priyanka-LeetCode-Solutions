@@ -1,0 +1,24 @@
+class Solution {
+    public void reverseWords(char[] s) {
+        reverseString(s, 0, s.length-1);
+        int right = 0;
+        
+         while(right < s.length){
+            int left = right;
+             while(right < s.length && s[right] != ' ')
+             right++;
+             reverseString(s, left, right-1);
+             right++;
+         }
+        
+    }
+
+   public void reverseString(char[] s, int l, int r) {
+    while (l < r) {
+        char tmp = s[l];
+        s[l++] = s[r];
+        s[r--] = tmp;
+    }
+}
+
+}
