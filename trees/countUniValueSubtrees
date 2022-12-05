@@ -1,0 +1,28 @@
+class Solution {
+    public int countUnivalSubtrees(TreeNode root) {
+        int count=0;
+        if(root == null) return 0;
+        
+        if(isUniValue(root))
+        count=1;
+        return countUnivalSubtrees(root.left) + countUnivalSubtrees(root.right)+count;
+    }
+
+    public boolean isUniValue(TreeNode root){
+        boolean leftValue =true;
+        boolean rightValue= true;
+        if(root.left != null){
+            if(root.val != root.left.val)
+                return false;
+            else 
+                leftValue = isUniValue(root.left);
+        }
+        if(root.right != null){
+            if(root.val != root.right.val)
+                return false;
+            else
+                rightValue = isUniValue(root.right);
+        }
+        return leftValue && rightValue;
+    }
+}
