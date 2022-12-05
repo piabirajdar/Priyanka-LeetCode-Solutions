@@ -1,0 +1,36 @@
+class Solution {
+    public boolean twoSumBSTs(TreeNode root1, TreeNode root2, int target) {
+        Queue<TreeNode> q = new LinkedList<>();
+
+        if(root1 != null) q.add(root1);
+        Set<Integer> s = new HashSet<>();
+        while(!q.isEmpty()){
+            TreeNode temp = q.poll();
+            s.add(target - temp.val);
+            if(temp.left != null){
+                q.add(temp.left);
+            }
+            if(temp.right != null){
+                q.add(temp.right);
+            }
+        }
+
+        q.clear();
+        if(root2 != null){
+            q.add(root2);
+        }
+        while(!q.isEmpty()){
+            TreeNode temp = q.poll();
+            if(s.contains(temp.val))
+            return true;
+
+            if(temp.left != null){
+                q.add(temp.left);
+            }
+            if(temp.right != null){
+                q.add(temp.right);
+            }
+        }
+        return false;
+    }
+}
