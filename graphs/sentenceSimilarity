@@ -1,0 +1,35 @@
+class Solution {
+    Map<String, List<String>> map;
+    public boolean areSentencesSimilarTwo(String[] sentence1, String[] sentence2, List<List<String>> similarPairs) {
+         if(sentence1.length != sentence2.length) return false;
+        map = new HashMap<>();
+
+        for(List<String> ls : similarPairs){
+            map.putIfAbsent(ls.get(0), new ArrayList<>());
+            map.putIfAbsent(ls.get(1), new ArrayList<>());
+            map.get(ls.get(0)).add(ls.get(1));
+            map.get(ls.get(1)).add(ls.get(0));
+        }
+
+        for(int i=0; i < sentence1.length; i++){
+            if(!dfs(sentence1[i], sentence2[i], new HashSet<>())){
+                return false;
+            }
+        }
+    return true;
+    }
+
+    public boolean dfs(String source, String dest, Set<String> visited){
+
+        if(source.equals(dest)) return true;
+        if(!map.containsKey(source) || !map.containsKey(dest)) return source.equals(dest);
+        for(String s: map.get(source)){
+            if(visited.contains(s)) continue;
+            visited.add(s);
+            if(dfs(s, dest, visited)){
+                return true;
+            }
+        }
+        return false;
+    }
+}
