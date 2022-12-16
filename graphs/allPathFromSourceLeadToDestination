@@ -1,0 +1,27 @@
+class Solution {
+        enum Status{
+        NOTUSED, USING, USED
+    } 
+    Map<Integer,List<Integer>> graph;
+     public boolean leadsToDestination(int n, int[][] edges, int source, int destination) {
+         graph = new HashMap<Integer,List<Integer>>();
+        for(int[] edge : edges){
+            graph.putIfAbsent(edge[0],new ArrayList<Integer>());
+            graph.get(edge[0]).add(edge[1]);
+        }
+        return helper(source,destination,new Status[n]);
+    }
+    
+    private boolean helper(int source, int destination, Status[] status){
+        List<Integer> children = graph.getOrDefault(source, new ArrayList<Integer>());
+        if(children.size()==0 && source!=destination)return false;
+        status[source] = Status.USING;
+        for(int child : children){
+            if(status[child]==Status.USED)continue;
+            if(status[child]==Status.USING)return false;
+            if(!helper(child,destination,status))return false;
+        }
+        status[source] = Status.USED;
+        return true;
+    }
+}
