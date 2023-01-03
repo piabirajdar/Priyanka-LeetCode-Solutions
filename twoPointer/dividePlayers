@@ -1,0 +1,28 @@
+class Solution {
+    public long dividePlayers(int[] skill) {
+        int len = skill.length;
+        if(len == 2) return skill[0]*skill[1];
+        int teams = len/2;
+    
+        int low=0;
+        int high=len-1;
+        int sum=0;
+        for(int i : skill) sum+=i;
+        int val = sum/teams;
+        long ans=0l;
+        if(sum%teams != 0) return -1;
+        Arrays.sort(skill);
+       while(low<high){
+            int teammate1 = skill[low];
+            int teammate2 = skill[high];
+            int tempSum = teammate1 + teammate2;
+            if(tempSum != val) return -1;
+            ans = ans + (teammate1*teammate2);
+            low++;
+            high--;
+        }
+
+        return ans;
+
+    }
+}
