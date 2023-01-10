@@ -1,0 +1,33 @@
+class Solution {
+    List<List<String>> ls = new ArrayList<>();
+    public List<List<String>> partition(String s) {
+        List<String> cur = new ArrayList<>();
+        helper(s, cur);
+        return ls;
+    }
+    public void helper(String s, List<String> cur){
+       if(s.length() == 0){
+           ls.add(new ArrayList<>(cur));
+           return;
+       }
+      
+        for(int i=0; i < s.length(); i++){
+            String prefix = s.substring(0, i+1);
+            String rem = s.substring(i+1);
+            if(isPalindrome(prefix)){
+                cur.add(prefix);
+                helper(rem,cur);
+                cur.remove(cur.size()-1);
+            } else continue;
+        }
+    }
+    public boolean isPalindrome(String str) {
+		
+		int length = str.length();
+		for(int idx = 0; idx < length/2; idx++) {
+			if(str.charAt(idx) != str.charAt(length - 1 - idx)) return false;
+		}
+
+		return true;
+	}
+}
