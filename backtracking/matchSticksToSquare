@@ -1,0 +1,29 @@
+class Solution {
+    public boolean makesquare(int[] m) {
+        boolean[] visited = new boolean[m.length];
+        int sum = 0;
+        for(int i : m){
+            sum+=i;
+        }
+        if(sum%4 == 0)
+        return helper(m, visited, 0, sum/4, 4, 0);
+        else return false;
+    }
+
+    public boolean helper(int[] nums, boolean[] visited, int curSum, int sum, int k, int start){
+        if(k==1) return true;
+        if(curSum == sum){
+            return helper(nums, visited, 0, sum, k-1, 0);
+        }
+
+        for(int i=start; i < nums.length; i++){
+            if(!visited[i] && curSum+nums[i] <=sum){
+                visited[i] = true;
+                if(helper(nums, visited, curSum+nums[i], sum, k, i+1))
+                return true;
+                visited[i] = false;
+            }
+        }
+        return false;
+    }
+}
