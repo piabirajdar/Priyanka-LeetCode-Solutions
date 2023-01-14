@@ -1,0 +1,28 @@
+class Solution {
+   int res;
+    Set<String> set;
+    public int numTilePossibilities(String tiles) {
+        res = 0;
+        set = new HashSet<>();
+        boolean[] visited = new boolean[tiles.length()];
+        helper(tiles, new StringBuilder(), 0, visited);
+        return set.size();
+    }
+    
+    public void helper(String tiles, StringBuilder sb, int cur, boolean[] visited){
+        if(sb.length() > 0){
+          set.add(sb.toString());
+        }
+        
+        for(int i=0; i < tiles.length(); i++){
+            if(!visited[i]){
+                visited[i] = true;
+            sb.append(tiles.charAt(i));
+            helper(tiles, sb, i+1, visited);
+            sb.deleteCharAt(sb.length()-1);
+                visited[i] = false;
+            }
+         
+        }
+    }
+}
