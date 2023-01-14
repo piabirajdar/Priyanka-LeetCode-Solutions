@@ -1,0 +1,26 @@
+class Solution {
+    public String findDifferentBinaryString(String[] nums) {
+         Set<String> set = new HashSet<>();
+        
+        for(String num : nums) {
+            set.add(num);
+        }
+        
+        int length = nums[0].length();
+        return generate(set, "", length);   
+    }
+
+    public String generate(Set<String> set, String cur, int len){
+        if(cur.length() == len){
+            if(!set.contains(cur)) {
+                return cur;
+            } else return null;
+        }
+
+       String word1 =  generate(set, cur + '0', len);
+       if(word1 != null) return word1;
+       String word2 =  generate(set, cur + '1', len);
+        return word2;
+
+    }
+}
