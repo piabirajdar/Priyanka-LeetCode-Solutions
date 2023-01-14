@@ -1,0 +1,35 @@
+class Solution {
+     List<String> ls =new ArrayList<>();
+    public String getHappyString(int n, int k) {
+        char[] arr = new char[3];
+        arr[0] = 'a';
+        arr[1] = 'b';
+        arr[2] = 'c';
+        helper(arr, n, new StringBuilder());
+        System.out.println(ls);
+        if(ls.size() >= k) return ls.get(k-1);
+        else return "";
+    }
+    
+    public void helper(char[] arr, int k, StringBuilder cur){
+        if(cur.length() == k){
+            if(isValid(cur.toString()))
+            ls.add(cur.toString());    
+            return;
+        }
+        
+        for(int i=0; i < arr.length; i++){
+            cur.append(arr[i]);
+            helper(arr, k, cur);
+            cur.deleteCharAt(cur.length()-1);   
+        }
+    }
+    
+    public boolean isValid(String s){
+        char[] ch = s.toCharArray();
+        for(int i=1; i < ch.length; i++){
+            if(ch[i] == ch[i-1])return false;
+        }
+        return true;
+    }
+}
