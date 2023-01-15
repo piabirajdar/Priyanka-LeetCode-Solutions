@@ -1,0 +1,43 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    int result;
+    public int equalToDescendants(TreeNode root) {
+        result=0;
+        helper(root);
+        return result;
+    }
+
+    public int helper(TreeNode root){
+        int sum =0;
+
+        if(root.left != null){
+            sum+=root.left.val;
+            sum+=helper(root.left);
+        }
+
+        if(root.right != null){
+            sum+=root.right.val;
+            sum+=helper(root.right);
+        }
+
+        if(sum == root.val){
+            ++result;
+            
+        }
+        return sum;
+    }
+}
