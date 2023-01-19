@@ -1,0 +1,27 @@
+class Solution {
+    public long maxKelements(int[] nums, int k) {
+        Arrays.sort(nums);
+        long sum=0;
+        int num=k;
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+        if(nums.length <= k){
+            k=nums.length;
+        }
+        while(k > 0){
+            pq.add(nums[nums.length-k]);
+            k--;
+        }
+        k=num;
+        while(k > 0 && !pq.isEmpty()) {
+            int val = pq.peek();
+
+            sum+=val;
+             int newNum = pq.peek() % 3 == 0 ? pq.peek() / 3 : pq.peek() / 3 + 1;
+            pq.poll();
+            pq.add(newNum);
+            k--;
+
+        }
+        return sum;
+    }
+}
