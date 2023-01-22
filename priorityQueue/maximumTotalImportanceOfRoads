@@ -1,0 +1,28 @@
+class Solution {
+    public long maximumImportance(int n, int[][] roads) {
+       Map<Integer, Integer> map = new HashMap<>();
+        Map<Integer, Integer> newMap = new HashMap<>();
+        long sum=0;
+       for(int[] road: roads){
+           map.put(road[0], map.getOrDefault(road[0], 0)+1);
+           map.put(road[1], map.getOrDefault(road[1], 0)+1);
+       }
+
+       PriorityQueue<Pair<Integer, Integer>> pq = new PriorityQueue<>((a, b) -> b.getValue()-a.getValue());
+
+       for(int key: map.keySet()){
+           pq.add(new Pair(key, map.get(key)));
+       }
+       while(pq.size()>0){
+           Pair<Integer, Integer> pair = pq.poll();
+           newMap.put(pair.getKey(), n);
+           n--;
+       }
+        System.out.println(newMap);
+       for(int[] road: roads){
+           sum+=newMap.get(road[0]);
+           sum+=newMap.get(road[1]);
+       }
+       return sum;
+    }
+}
