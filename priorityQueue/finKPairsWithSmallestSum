@@ -1,0 +1,31 @@
+class Solution {
+    public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {
+ ArrayList<List<Integer>> result = new ArrayList<List<Integer>>();
+       PriorityQueue<int[]> heap = new PriorityQueue<>((p, q) -> q[0]+q[1] - p[0]-p[1]);
+        int n = nums1.length;
+        int m = nums2.length;
+        if (n == 0 || m == 0)
+        {
+            return result;
+        }
+        
+       for(int i=0; i < n; i++){
+           for(int j=0; j < m; j++){
+               heap.add(new int[]{nums1[i], nums2[j]});
+               if(heap.size() > k){
+                   heap.poll();
+               }
+           }
+       }
+        
+        while (!heap.isEmpty()) {
+            int[] top = heap.poll();
+            ArrayList<Integer> tmp = new ArrayList<Integer>();
+            tmp.add(top[0]);
+            tmp.add(top[1]);
+            result.add(tmp);
+        }
+        
+        return result;
+    }
+}
