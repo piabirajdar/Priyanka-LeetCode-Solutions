@@ -1,0 +1,29 @@
+class Solution {
+    public int secondsToRemoveOccurrences(String s) {
+  
+        char[] c = s.toCharArray();
+        int ans=0;
+        boolean flag = false;
+        while(s.contains("01")){    
+            for(int i=0; i < s.length()-1; i++){
+               if(c[i] == '0' && c[i+1] == '1'){
+                   swap(i, i+1, c);
+                   flag=true;
+                   i++;
+               }
+            }
+            if(flag){
+                ans+=1;
+                s = String.valueOf(c);
+                c = s.toCharArray();
+            };
+        }
+        return ans;
+    }
+
+    public void swap(int i, int j, char[] ch){
+        char tmp = ch[i];
+        ch[i] = ch[j];
+        ch[j] = tmp;
+    }
+}
