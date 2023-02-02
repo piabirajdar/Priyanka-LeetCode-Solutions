@@ -1,0 +1,27 @@
+class Solution {
+    Map<String, Integer> map;
+    public int minCost(int[][] costs) {
+        map = new HashMap<>();
+
+        return Math.min(helper(0, 0, costs), Math.min(helper(0, 1, costs), helper(0, 2, costs)));
+    }
+
+    public int helper(int n, int color, int[][] costs){
+        String key = n+""+color;
+        if(map.containsKey(key)){
+            return map.get(key);
+        }
+        int totalCost = costs[n][color];
+        if(n == costs.length-1){
+            return totalCost;
+        } else if(color == 0){
+         totalCost+=Math.min(helper(n+1, 1, costs), helper(n+1, 2, costs));
+        } else if(color ==1 ){
+            totalCost += Math.min(helper(n+1, 0, costs), helper(n+1, 2, costs));
+        } else if(color == 2){
+            totalCost += Math.min(helper(n+1, 0, costs), helper(n+1, 1, costs));
+        }
+        map.put(key, totalCost);
+        return totalCost;
+    }
+}
