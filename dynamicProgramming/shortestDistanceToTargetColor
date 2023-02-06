@@ -1,0 +1,38 @@
+class Solution {
+    public List<Integer> shortestDistanceColor(int[] colors, int[][] queries) {
+        int n=colors.length;
+        int[] right = {0, 0, 0};
+        int[] left = {n-1, n-1, n-1};
+        int[][] dist = new int[3][n];
+        for(int i=0; i < 3; i++){
+            for(int j=0; j < n; j++){
+                dist[i][j] = -1;
+            }
+        }
+        //forward
+        for(int i=0; i < n; i++){
+            int color = colors[i]-1;
+            for(int j=right[color]; j < i+1; j++){
+                dist[color][j] = i-j;
+            }
+            right[color] = i+1;
+        }
+        //backward
+        for(int i=n-1; i>=0; i--){
+            int color = colors[i]-1;
+            for(int j=left[color]; j >=i; j--){
+                if(dist[color][j] == -1 || dist[color][j] > j-i){
+                dist[color][j] = j-i;
+                }
+            }
+            left[color] = i-1;
+        }
+       List<Integer> res = new ArrayList<>();
+        for(int i=0; i < queries.length; i++){
+            int index = queries[i][0];
+            int color = queries[i][1]-1;
+            res.add(dist[color][index]);   
+        }
+        return res;
+    }
+}
