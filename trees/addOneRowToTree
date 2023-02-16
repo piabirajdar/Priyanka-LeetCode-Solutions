@@ -1,0 +1,39 @@
+
+class Solution {
+    public TreeNode addOneRow(TreeNode root, int val, int depth) {
+        if(root == null) return null;
+        if(depth == 1){
+            TreeNode newNode = new TreeNode(val);
+            newNode.left = root;
+            root = newNode;
+            return root;
+        }
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        q.offer(null);
+        int d = 1;
+        while(!q.isEmpty()){
+            TreeNode temp = q.poll();
+            if(temp != null){
+                if(d == depth-1){
+                    TreeNode temp1 = temp.left;
+                    temp.left = new TreeNode(val);
+                    temp.left.left = temp1;
+                    
+                     TreeNode temp2 = temp.right;
+                    temp.right = new TreeNode(val);
+                    temp.right.right = temp2;
+                }
+                if(temp.left != null) q.offer(temp.left);
+                if(temp.right != null) q.offer(temp.right);
+            } else{
+                d++;
+                if(d == depth) break;
+                if(!q.isEmpty()) q.offer(null);
+            }
+            
+        }
+   
+        return root;
+    }
+}
