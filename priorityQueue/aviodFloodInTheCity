@@ -1,0 +1,50 @@
+class Solution {
+     public int[] avoidFlood(int[] rains) {
+            int[] sol = new int[rains.length];
+        boolean possible = true;
+        Map<Integer, Integer> lakes = new HashMap<>();
+        List<Integer> empty = new LinkedList<>();
+        for (int i = 0; i < rains.length; i++) {
+            if (rains[i] > 0 && !lakes.containsKey(rains[i])) {
+                lakes.put(rains[i], i);
+                sol[i] = -1;
+            } else if (rains[i] > 0 && lakes.containsKey(rains[i])) {
+                int loc = getLoc(empty, lakes.get(rains[i]));
+                if (loc == -1) {
+                    possible = false;
+                    break;
+                } else {
+                    //fills the empty slot that will be used to empty this lake
+                    //before being filled again
+                    sol[loc] = rains[i];
+                    lakes.put(rains[i], i);
+                    sol[i] = -1;
+                }
+            } else if (rains[i] == 0) {
+                empty.add(i);
+                //As per instruction 
+                sol[i] = 1;
+            }
+
+        }
+
+        if (possible) {
+            return sol;
+        } else {
+            return new int[0];
+        }
+    }
+
+    //this will return the first index which is greater than current 
+    //lake which needs to be emptied this means that we can only empty 
+    // a lake which is filled before the slot available.
+    int getLoc(List<Integer> emptySlots, int index) {
+        for (int i = 0; i < emptySlots.size(); i++) {
+            if (emptySlots.get(i) > index) {
+                //since the slot will be consumed hence we are removing it from list
+                return emptySlots.remove(i);
+            }
+        }
+        return -1;
+    }
+}
