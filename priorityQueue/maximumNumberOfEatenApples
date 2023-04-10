@@ -1,0 +1,39 @@
+public class Apple{  //Custom apple class , int[2] can also be used
+		int cnt , range; // stores apple count and rot date 
+
+		Apple(int cnt , int range){
+			this.cnt = cnt;
+			this.range = range;
+		}
+	}
+
+class Solution {
+   
+	public int eatenApples(int[] apples, int[] days) {
+		PriorityQueue<Apple> pq = new PriorityQueue<>((a , b) -> a.range - b.range); // custom heap arranges apples based on rot date
+
+		int count = 0;
+
+		for(int i = 0 ; i < apples.length || !pq.isEmpty() ; i++){
+
+			if(i < apples.length && apples[i] != 0) // stores apple detail if apples[i] != 0
+				pq.add(new Apple(apples[i] , i + days[i]));
+
+			while(!pq.isEmpty() && pq.peek().range <= i) // remove all the rotten apples
+				pq.poll();
+
+			if(!pq.isEmpty()){
+				Apple a = pq.poll();
+				a.cnt -= 1; // reduce apple count
+
+				if(a.cnt > 0) // if apples are not finished yet push back to queue
+					pq.add(a);
+
+				count++; //found an apple to eat on current day
+			}
+
+		}
+
+		return count;
+	}
+}
