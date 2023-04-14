@@ -1,0 +1,17 @@
+class Solution {
+    public int minimumRecolors(String blocks, int k) {
+        int res=0;
+        int sum = 0;
+
+        for(int i=0; i <k; i++){
+            if(blocks.charAt(i) == 'W') sum++;
+        }
+        res = sum;
+        for(int i=1; i < blocks.length()-k+1; i++){
+            if(blocks.charAt(i-1) == 'W') sum-=1;
+            if(blocks.charAt(i+1) == 'W') sum+=1;
+            res = Math.max(res, sum);
+        }
+        return res;
+    }
+}
