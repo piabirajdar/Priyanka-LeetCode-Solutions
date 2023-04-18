@@ -1,0 +1,34 @@
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        if(s1.length() > s2.length())
+        return false;
+
+        int[] firstFreq = new int[26];
+        int[] secondFreq = new int[26];
+
+        for(int i=0;i < s1.length(); i++){
+            secondFreq[s2.charAt(i)-'a']++;
+            firstFreq[s1.charAt(i)-'a']++;
+        }
+        if(isPermutation(firstFreq, secondFreq)){
+            return true;
+        }
+        for(int i=1; i < s2.length()-s1.length()+1; i++){
+            secondFreq[s2.charAt(i-1)-'a']--;
+            secondFreq[s2.charAt(i+s1.length()-1)-'a']++;
+            if(isPermutation(firstFreq, secondFreq)){
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    public boolean isPermutation(int[] first, int[] second){
+        for(int i=0; i < 26; i++){
+            if(first[i] != second[i])
+            return false;
+        }
+        return true;
+    }
+}
