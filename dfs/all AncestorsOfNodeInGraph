@@ -1,0 +1,33 @@
+class Solution {
+    public List<List<Integer>> getAncestors(int n, int[][] edges) {
+       Map<Integer, List<Integer>> map = new HashMap<>();
+        
+        for(int[] arr: edges){
+            int a = arr[0];
+            int b = arr[1];
+            
+            List<Integer> ls = map.getOrDefault(b, new ArrayList<>());
+            ls.add(a);
+            map.put(b, ls);
+        }
+        System.out.println(map);
+        List<List<Integer>> res = new ArrayList<>();
+        for(int i=0; i < n ;i++){
+            Set<Integer> visited = new TreeSet<>();
+            findAncestors(i, map, visited);
+            res.add(new ArrayList<>(visited));
+        }
+        return res;
+    }
+    
+    void findAncestors(int num, Map<Integer, List<Integer>> dependencyGraph, Set<Integer> visited) {
+        if (!dependencyGraph.containsKey(num))
+            return;
+        for (int next: dependencyGraph.get(num)) {
+            if (!visited.contains(next)){
+                visited.add(next);
+                findAncestors(next, dependencyGraph, visited);
+            }       
+        }
+    }
+}
