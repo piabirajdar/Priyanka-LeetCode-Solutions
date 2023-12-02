@@ -1,0 +1,34 @@
+class Solution {
+    public static int maxWhenGrumpy(int[] cust, int[] g, int k) {
+        int maxi = 0, end = 0, sum = 0, start = 0, n = cust.length;
+        while (end < k) {
+            if (g[end] == 1)
+                sum += cust[end];
+            end++;
+        }
+        maxi = Math.max(maxi, sum);
+
+        while (end < n) {
+            if (g[start] == 1)
+                sum -= cust[start];
+            if (g[end] == 1)
+                sum += cust[end];
+            maxi = Math.max(maxi, sum);
+            end++;
+            start++;
+        }
+        return maxi;
+
+    }
+    public int maxSatisfied(int[] customers, int[] grumpy, int minutes) {
+        int max = 0, n = customers.length;
+        //get max grumpy of length k so as to consider them as not grumpy at that time.
+        max = maxWhenGrumpy(customers, grumpy, minutes);
+        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            if (grumpy[i] == 0)
+                sum += customers[i];
+        }
+        return max + sum;
+    }
+}
