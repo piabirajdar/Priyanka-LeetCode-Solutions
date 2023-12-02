@@ -1,0 +1,26 @@
+class Solution {
+    public int maxScore(int[] cardPoints, int k) {
+        int n= cardPoints.length;
+       int win =n -k;
+       int curSum = 0;
+       int totalSum = 0;
+
+       for(int i : cardPoints)
+       totalSum+=i;
+
+       for(int i=0; i < win; i++)
+       curSum+=cardPoints[i];
+
+        int max = totalSum-curSum;
+
+        for(int i=1; i < n-win+1; i++){
+            System.out.println(curSum);
+            curSum-=cardPoints[i-1];
+            curSum+=cardPoints[i+win-1];
+
+            max = Math.max(max, totalSum-curSum);
+        }
+ System.out.println(curSum);
+        return max;
+    }
+}
